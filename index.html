@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <title>Baidu OAuth 授权码获取</title>
+  <style>
+    body { font-family: sans-serif; max-width: 600px; margin: 50px auto; }
+    input, button { width: 100%; margin: 8px 0; padding: 8px; font-size: 1em; }
+    #result { white-space: pre-wrap; background: #f0f0f0; padding: 10px; margin-top: 10px; }
+  </style>
+</head>
+<body>
+  <h2>百度授权码获取</h2>
+  <button type="button" onclick="getAuthCode()">跳转获取授权码</button>
+  <label>输入授权码：</label>
+  <input type="text" id="authCode" placeholder="粘贴从百度获取的授权码" />
+  <button type="button" onclick="getRefreshToken()">获取 refresh_token</button>
+  <div id="result"></div>
+
+  <script>
+    function getAuthCode() {
+      window.open('/auth', '_blank');
+    }
+
+    async function getRefreshToken() {
+      const code = document.getElementById('authCode').value.trim();
+      if (!code) {
+        alert('请填写授权码！');
+        return;
+      }
+      try {
+        const resp = await fetch(`/get_token?code=${encodeURIComponent(code)}`);
+        const data = await resp.json();
+        if (data.refresh_token) {
+          document.getElementById('result').textContent = '🎉 获取成功！\n\nRefresh Token:\n' + data.refresh_token;
+        } else {
+          document.getElementById('result').textContent = '❌ 获取失败:\n' + JSON.stringify(data, null, 2);
+        }
+      } catch (e) {
+        document.getElementById('result').textContent = '发生错误:\n' + e;
+      }
+    }
+  </script>
+</body>
+</html>
