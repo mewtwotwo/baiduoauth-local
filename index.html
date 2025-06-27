@@ -3,11 +3,24 @@
 <head>
   <meta charset="UTF-8" />
   <title>Baidu OAuth 授权码获取</title>
-  <style>
-    body { font-family: sans-serif; max-width: 600px; margin: 50px auto; }
-    input, button { width: 100%; margin: 8px 0; padding: 8px; font-size: 1em; }
-    #result { white-space: pre-wrap; background: #f0f0f0; padding: 10px; margin-top: 10px; }
-  </style>
+<style>
+  body { font-family: sans-serif; max-width: 600px; margin: 50px auto; }
+  input, button { width: 100%; margin: 8px 0; padding: 8px; font-size: 1em; }
+  #result {
+    white-space: pre-wrap;
+    background: #f0f0f0;
+    padding: 10px;
+    margin-top: 10px;
+    min-height: 80px;
+    max-height: 200px;
+    overflow-y: auto;
+    font-family: monospace;
+    font-size: 1em;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    word-break: break-all;
+  }
+</style>
 </head>
 <body>
   <h2>百度授权码获取</h2>
