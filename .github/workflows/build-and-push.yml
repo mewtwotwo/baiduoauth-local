@@ -39,3 +39,4 @@ jobs:
           push: true
           tags: |
             linkmew/baiduoauth:latest
+            linkmew/baiduoauth:1.0.0
