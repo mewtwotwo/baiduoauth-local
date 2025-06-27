@@ -1,12 +1,22 @@
 {
   "name": "baidu-oauth-local",
   "version": "1.0.0",
-  "description": "纯本地百度 OAuth refresh_token 获取服务",
+  "description": "纯本地部署的百度 OAuth refresh_token 获取服务",
+  "main": "server.js",
   "type": "module",
   "scripts": {
     "start": "node server.js"
   },
   "dependencies": {
-    "express": "^4.19.2",
-  }
+    "express": "^4.19.2"
+  },
+  "keywords": [
+    "baidu",
+    "oauth",
+    "refresh_token",
+    "local",
+    "express"
+  ],
+  "author": "",
+  "license": "MIT"
 }
