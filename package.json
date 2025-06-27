@@ -1,0 +1,13 @@
+{
+  "name": "baidu-oauth-local",
+  "version": "1.0.0",
+  "description": "纯本地百度 OAuth refresh_token 获取服务",
+  "type": "module",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.19.2",
+    "node-fetch": "^3.4.1"
+  }
+}
