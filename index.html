@@ -3,31 +3,75 @@
 <head>
   <meta charset="UTF-8" />
   <title>Baidu OAuth 授权码获取</title>
-<style>
-  body { font-family: sans-serif; max-width: 600px; margin: 50px auto; }
-  input, button { width: 100%; margin: 8px 0; padding: 8px; font-size: 1em; }
-  #result {
-    white-space: pre-wrap;
-    background: #f0f0f0;
-    padding: 10px;
-    margin-top: 10px;
-    min-height: 80px;
-    max-height: 200px;
-    overflow-y: auto;
-    font-family: monospace;
-    font-size: 1em;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    word-break: break-all;
-  }
-</style>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      max-width: 600px;
+      margin: 60px auto;
+      padding: 20px;
+      background: #f9f9f9;
+      color: #333;
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    label {
+      font-weight: bold;
+      margin-top: 10px;
+      display: block;
+    }
+
+    input, button {
+      width: 100%;
+      margin: 8px 0;
+      padding: 10px;
+      font-size: 1em;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      box-sizing: border-box;
+    }
+
+    button {
+      background-color: #0078d4;
+      color: white;
+      border: none;
+      cursor: pointer;
+      transition: background-color 0.2s ease;
+    }
+
+    button:hover {
+      background-color: #005ea6;
+    }
+
+    #result {
+      white-space: pre-wrap;
+      background: #eef6ff;
+      padding: 14px;
+      margin-top: 16px;
+      min-height: 100px;
+      max-height: 300px;
+      overflow-y: auto;
+      font-family: monospace;
+      font-size: 0.95em;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      word-break: break-word;
+    }
+  </style>
 </head>
 <body>
-  <h2>百度授权码获取</h2>
-  <button type="button" onclick="getAuthCode()">跳转获取授权码</button>
-  <label>输入授权码：</label>
+  <h2>百度 OAuth 授权码获取工具</h2>
+
+  <button type="button" onclick="getAuthCode()">🔗 跳转获取授权码</button>
+
+  <label for="authCode">输入授权码：</label>
   <input type="text" id="authCode" placeholder="粘贴从百度获取的授权码" />
-  <button type="button" onclick="getRefreshToken()">获取 refresh_token</button>
+
+  <button type="button" onclick="getRefreshToken()">🔑 获取 refresh_token</button>
+
   <div id="result"></div>
 
   <script>
@@ -45,9 +89,11 @@
         const resp = await fetch(`/get_token?code=${encodeURIComponent(code)}`);
         const data = await resp.json();
         if (data.refresh_token) {
-          document.getElementById('result').textContent = '🎉 获取成功！\n\nRefresh Token:\n' + data.refresh_token;
+          document.getElementById('result').textContent =
+            '🎉 获取成功！\n\nRefresh Token:\n' + data.refresh_token;
         } else {
-          document.getElementById('result').textContent = '❌ 获取失败:\n' + JSON.stringify(data, null, 2);
+          document.getElementById('result').textContent =
+            '❌ 获取失败:\n' + JSON.stringify(data, null, 2);
         }
       } catch (e) {
         document.getElementById('result').textContent = '发生错误:\n' + e;
