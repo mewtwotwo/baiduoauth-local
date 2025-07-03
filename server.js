@@ -3,18 +3,22 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 
 const app = express();
-const PORT = process.env.PORT || 7878;  // 支持自定义端口，默认7878
+const PORT = process.env.PORT || 7878;
 
 const API_KEY = process.env.API_KEY;
 const SECRET_KEY = process.env.SECRET_KEY;
 const TOKEN_URL = 'https://openapi.baidu.com/oauth/2.0/token';
 
-// 主页返回静态文件 index.html
+// 获取当前文件所在目录
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+// 返回首页
 app.get('/', (req, res) => {
-  res.sendFile(path.join(path.dirname(fileURLToPath(import.meta.url)), 'index.html'));
+  res.sendFile(path.join(__dirname, 'index.html'));
 });
 
-// 跳转百度授权页面
+// 跳转到百度授权页面
 app.get('/auth', (req, res) => {
   const authUrl = new URL('https://openapi.baidu.com/oauth/2.0/authorize');
   authUrl.searchParams.set('response_type', 'code');
@@ -24,7 +28,7 @@ app.get('/auth', (req, res) => {
   res.redirect(authUrl.toString());
 });
 
-// 用授权码换取 refresh_token
+// 获取 refresh_token
 app.get('/get_token', async (req, res) => {
   const code = req.query.code;
   if (!code) return res.status(400).send('Missing code');
@@ -50,7 +54,7 @@ app.get('/get_token', async (req, res) => {
   }
 });
 
-// 用 refresh_token 换取 access_token
+// 获取 access_token
 app.get('/get_access', async (req, res) => {
   const refresh_token = req.query.refresh_token;
   if (!refresh_token) return res.status(400).send('Missing refresh_token');
